@@ -1,0 +1,17 @@
+# file opened: Deslocador_direita_aritmetico.asm
+ 1    0000                DEVICE NOSLOT64K
+ 2    0000                SLDOPT COMMENT WPMEM, LOGPOINT, ASSERTION
+ 3    0000
+ 4    0000                ORG 0000H
+ 5    0000
+ 6    0000              portC = 03H
+ 7    0000
+ 8    0000                ;0101b  1010b
+ 9    0000                ;   5h     Ah
+10    0000
+11    0000                ; 4MHz = 250ns
+12    0000 3E 5A          LD A, 5AH
+13    0002 D3 03          OUT (portC), A
+14    0004
+15    0004 76             HALT
+# file closed: Deslocador_direita_aritmetico.asm

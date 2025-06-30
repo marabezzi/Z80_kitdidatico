@@ -1,0 +1,32 @@
+# file opened: Prog2.asm
+ 1    0000               DEVICE NOSLOT64K
+ 2    0000               SLDOPT COMMENT WPMEM, LOGPOINT, ASSERTION
+ 3    0000
+ 4    0000               ORG 0000H
+ 5    0000
+ 6    0000 31 FF 0F      LD SP, 0FFFH
+ 7    0003 3E FF         LD A, 00FFH
+ 8    0005
+ 9    0005              loop:
+10    0005 EE FF         XOR 00FFH
+11    0007 06 FF         LD B, 00FFH        ; 7 STATES (60H - 96D = 100mS)
+12    0009 CD 0F 00      CALL delay         ; 17 STATES
+13    000C C3 05 00      JP loop            ; 10 STATES
+14    000F
+15    000F              delay:              ; 1 VEZ? 59+4101 STATES(14,8us+1,03ms=1,045ms) 2 VEZES? 59+39+4101(1,05ms)
+16    000F 0E FF         LD C, 00FFH        ; 7 STATES
+17    0011 CD 17 00      CALL delay2        ; 17 STATES
+18    0014 10 F9         DJNZ delay         ; B =! 0 15 STATES,  B=0 8 STATES
+19    0016 C9            RET                ; 10 STATES
+20    0017
+21    0017              delay2:             ; 256 VEZES? 4080+21 STATES = 4101 STATES(1,03ms)
+22    0017 0D            DEC C              ; 4 STATES
+23    0018 20 FD         JR NZ, delay2      ; SATISFEITO? 12 STATES(Z=0),  SENAO 7 STATES(Z=1)
+24    001A C9            RET                ; 10 STATES
+25    001B
+26    001B 76            HALT
+27    001C
+28    001C               ; delay  10 VEZES? (10,5ms)
+29    001C               ; delay  97 VEZES? (100,4ms)
+30    001C               ; delay  484 VEZES? (500,0ms)
+# file closed: Prog2.asm

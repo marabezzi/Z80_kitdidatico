@@ -1,0 +1,77 @@
+# file opened: Prog5.asm
+ 1    0000               DEVICE NOSLOT64K
+ 2    0000               SLDOPT COMMENT WPMEM, LOGPOINT, ASSERTION
+ 3    0000
+ 4    0000              ; DEMO Z80-Didático
+ 5    0000
+ 6    0000               ORG 0000H
+ 7    0000
+ 8    0000 31 FF 0F      LD SP, 0FFFH
+ 9    0003
+10    0003              carrega_tabela:
+11    0003 21 52 00      LD HL, tabela
+12    0006 CD 0E 00      CALL loop
+13    0009 C3 03 00      JP carrega_tabela
+14    000C 3E 00         LD A, 00H
+15    000E
+16    000E              loop:
+17    000E 7E            LD A, (HL)
+18    000F 23            INC HL
+19    0010 D3 01         OUT (01H), A
+20    0012 06 FF         LD B, 00FFH
+21    0014 EE 00         XOR 00H
+22    0016 5F            LD E, A
+23    0017
+24    0017 16 07         LD D, 07H
+25    0019 CD 2E 00      CALL loop_esq
+26    001C CD 46 00      CALL delay
+27    001F
+28    001F CD 46 00      CALL delay
+29    0022
+30    0022 16 07         LD D, 07H
+31    0024 CD 3A 00      CALL loop_dir
+32    0027 CD 46 00      CALL delay
+33    002A
+34    002A 7B            LD A, E
+35    002B 20 E1         JR NZ, loop
+36    002D C9            RET
+37    002E
+38    002E              loop_esq:
+39    002E D3 02                OUT (02H), A
+40    0030 0E 02                LD C, 02H
+41    0032 CD 46 00             CALL delay
+42    0035 07                   RLCA
+43    0036 15                   DEC D
+44    0037 20 F5                JR NZ, loop_esq
+45    0039 C9                   RET
+46    003A
+47    003A              loop_dir:
+48    003A D3 02                OUT (02H), A
+49    003C 0E 02                LD C, 02H
+50    003E CD 46 00             CALL delay
+51    0041 1F                   RRA
+52    0042 15                   DEC D
+53    0043 20 F5                JR NZ, loop_dir
+54    0045 C9                   RET
+55    0046
+56    0046
+57    0046              delay:              ; 1 VEZ? 59+4101 STATES(14,8us+1,03ms=1,045ms) 2 VEZES? 59+39+4101(1,05ms)
+58    0046 0E FF         LD C, 00FFH        ; 7 STATES
+59    0048 CD 4E 00      CALL delay2        ; 17 STATES
+60    004B 10 F9         DJNZ delay         ; B =! 0 15 STATES,  B=0 8 STATES
+61    004D C9            RET                ; 10 STATES
+62    004E
+63    004E              delay2:             ; 256 VEZES? 4080+21 STATES = 4101 STATES(1,03ms)
+64    004E 0D            DEC C              ; 4 STATES
+65    004F 20 FD         JR NZ, delay2      ; SATISFEITO? 12 STATES(Z=0),  SENAO 7 STATES(Z=1)
+66    0051 C9            RET
+67    0052
+68    0052
+69    0052              tabela:
+70    0052 18 24 42 81   .DB 0018H, 0024H, 0042H, 0081H, 0081H, 0042H, 0024H, 0018H, 00H
+70    0056 81 42 24 18
+70    005A 00
+71    005B
+72    005B 76            HALT
+73    005C               .END
+# file closed: Prog5.asm

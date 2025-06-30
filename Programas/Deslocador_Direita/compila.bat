@@ -1,0 +1,1 @@
+sjasmplus --sld=Deslocador_direita_aritmetico.sld --lst=Deslocador_direita_aritmetico.obj --fullpath Deslocador_direita_aritmetico.asm

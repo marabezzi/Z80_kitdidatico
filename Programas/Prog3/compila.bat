@@ -1,0 +1,1 @@
+sjasmplus --sld=Prog3.sld --lst=Prog3.lst --raw=Prog3.obj --fullpath Prog3.asm

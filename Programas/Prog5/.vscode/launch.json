@@ -1,0 +1,69 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "dezog",
+            "request": "launch",
+            "name": "Simulator - Bare Z80",
+            "remoteType": "zsim",
+            "zsim": {
+                "visualMemory": true,
+                "memoryModel": "RAM"
+            },
+            "sjasmplus": [
+                {
+                    "path": "Prog5.sld"
+                }
+            ],
+            "commandsAfterLaunch": [],
+            "history": {
+                "reverseDebugInstructionCount": 1000000,
+                "spotCount": 10,
+                "codeCoverageEnabled": true
+            },
+            "startAutomatically": false,
+            "rootFolder": "${workspaceFolder}",
+            "loadObjs": [
+                {
+                    "path": "Prog5.obj"
+                    "start": "0x0000"
+                }
+            ],
+            "execAddress": "0x0000",
+            "topOfStack": "0x0FFF"
+        },
+
+        {
+            
+            "type": "dezog",
+            "request": "launch",
+            "name": "Simulator - ZX48K Spectrum",
+            "remoteType": "zsim",
+            "zsim": {
+                "visualMemory": true,
+                "memoryModel": "ZX48K",
+                "ulaScreen": "spectrum",
+                "zxKeyboard": "spectrum",
+                "zxBeeper": true
+            },
+            "sjasmplus": [
+                {
+                    "path": "Add your assembler list or sld file"
+                }
+            ],
+            "commandsAfterLaunch": [],
+            "history": {
+                "reverseDebugInstructionCount": 1000000,
+                "spotCount": 10,
+                "codeCoverageEnabled": true
+            },
+            "startAutomatically": false,
+            "rootFolder": "${workspaceFolder}",
+            "load": "Add your .nex or .sna file to load",
+            "topOfStack": "Add your top of stack / label name"
+        }
+    ]
+}

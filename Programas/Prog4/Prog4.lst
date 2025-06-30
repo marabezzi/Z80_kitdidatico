@@ -1,0 +1,51 @@
+# file opened: Prog4.asm
+ 1    0000               DEVICE NOSLOT64K
+ 2    0000               SLDOPT COMMENT WPMEM, LOGPOINT, ASSERTION
+ 3    0000
+ 4    0000              ; VAI E VOLTA LED ACESSO
+ 5    0000
+ 6    0000               ORG 0000H
+ 7    0000
+ 8    0000 31 FF 0F      LD SP, 0FFFH
+ 9    0003 3E 01         LD A, 01H
+10    0005
+11    0005              main:
+12    0005 16 07             LD D, 07H
+13    0007 CD 12 00          CALL loop_esq
+14    000A 16 07             LD D, 07H
+15    000C CD 1E 00          CALL loop_dir
+16    000F C3 05 00          JP main
+17    0012
+18    0012              loop_esq:
+19    0012 D3 02                OUT (02H), A
+20    0014 0E 02                LD C, 02H
+21    0016 CD 2A 00             CALL delay
+22    0019 07                   RLCA
+23    001A 15                   DEC D
+24    001B 20 F5                JR NZ, loop_esq
+25    001D C9                   RET
+26    001E
+27    001E              loop_dir:
+28    001E D3 02                OUT (02H), A
+29    0020 0E 02                LD C, 02H
+30    0022 CD 2A 00             CALL delay
+31    0025 1F                   RRA
+32    0026 15                   DEC D
+33    0027 20 F5                JR NZ, loop_dir
+34    0029 C9                   RET
+35    002A
+36    002A
+37    002A              delay:
+38    002A 0D                   DEC C
+39    002B 06 02                LD B, 02H
+40    002D CD 33 00             CALL delay2
+41    0030 20 F8                JR NZ, delay
+42    0032 C9                   RET
+43    0033
+44    0033              delay2:
+45    0033 10 FE                DJNZ delay2
+46    0035 C9                   RET
+47    0036
+48    0036 76            HALT
+49    0037               .END
+# file closed: Prog4.asm
